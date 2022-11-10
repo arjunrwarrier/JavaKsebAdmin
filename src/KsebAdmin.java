@@ -55,6 +55,36 @@ public class KsebAdmin {
                     break;
                 case 2:
                     System.out.println("Search Consumer");
+                    System.out.println("Enter the Consumer Code/Name/Phone to search: ");
+                    String searchOption = input.next();
+
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ksebdb", "root", "");
+                        String sql = "SELECT `consumerCode`, `consumerName`, `consumerPhone`, `consumerEmail`, `consumerAddress` FROM `consumer` WHERE `consumerCode` ='"+searchOption+"'  OR `consumerName`='"+searchOption+"' OR `consumerPhone` ='"+searchOption+"' ";
+
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while (rs.next()){
+                            String getConsumerCode = rs.getString("consumerCode");
+                            String getConsumerName = rs.getString("consumerName");
+                            String getConsumerPhone = rs.getString("consumerPhone");
+                            String getConsumerEmail = rs.getString("consumerEmail");
+                            String getConsumerAddress = rs.getString("consumerAddress");
+
+                            System.out.println("Consumer Code="+getConsumerCode);
+                            System.out.println("Consumer Name="+getConsumerName);
+                            System.out.println("Consumer Phone="+getConsumerPhone);
+                            System.out.println("Consumer Email="+getConsumerEmail);
+                            System.out.println("Consumer Address="+getConsumerAddress);
+
+                        }
+
+
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
 
                     break;
                 case 3:
