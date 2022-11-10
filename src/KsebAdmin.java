@@ -90,6 +90,21 @@ public class KsebAdmin {
                 case 3:
                     System.out.println("Delete Consumer");
 
+                    System.out.println("Enter the consumer code to delete: ");
+                    consumerCode = input.nextInt();
+
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ksebdb", "root", "");
+                        String sql = "DELETE FROM `consumer` WHERE `consumerCode` = "+consumerCode;
+                        Statement stmt = con.createStatement();
+                        stmt.executeUpdate(sql);
+                        System.out.println("Consumer Data deleted successfully.");
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
+
 
                     break;
                 case 4:
