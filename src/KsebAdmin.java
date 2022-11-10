@@ -1,8 +1,11 @@
 import java.util.Scanner;
+import java.sql.*;
 
 public class KsebAdmin {
     public static void main(String[] args) {
-        int choice;
+        int choice, consumerCode;
+        String consumerName, consumerPhone, consumerEmail, consumerAddress;
+
         Scanner input = new Scanner(System.in);
 
         while(true){
@@ -21,9 +24,34 @@ public class KsebAdmin {
             switch (choice){
                 case 1:
                     System.out.println("Add Consumer");
+                    System.out.println("Enter the consumer code: ");
+                    consumerCode = input.nextInt();
+                    System.out.println("Enter Consumer Name: ");
+                    consumerName = input.next();
+                    System.out.println("Enter Consumer Phone: ");
+                    consumerPhone = input.next();
+                    System.out.println("Enter Consumer Email Id: ");
+                    consumerEmail = input.next();
+                    System.out.println("Enter Consumer Address: ");
+                    consumerAddress = input.next();
 
 
-
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ksebdb","root","");
+                        String sql = "INSERT INTO `consumer`(`consumerCode`, `consumerName`, `consumerPhone`, `consumerEmail`, `consumerAddress`) VALUES (?,?,?,?,?)";
+                        PreparedStatement stmt = con.prepareStatement(sql);
+                        stmt.setInt(1,consumerCode);
+                        stmt.setString(2,consumerName);
+                        stmt.setString(3,consumerPhone);
+                        stmt.setString(4,consumerEmail);
+                        stmt.setString(5,consumerAddress);
+                        stmt.executeUpdate();
+                        System.out.println("Data inserted successfully.");
+                    }
+                    catch (Exception e ){
+                        System.out.println(e);
+                    }
                     break;
                 case 2:
                     System.out.println("Search Consumer");
