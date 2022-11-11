@@ -275,7 +275,7 @@ public class KsebAdmin {
                     try{
                         Class.forName("com.mysql.jdbc.Driver");
                         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ksebdb","root","");
-                        String sql = "SELECT c.consumerName,c.consumerAddress,b.`totalunit`, b.`bill` FROM bill b JOIN consumer c ON b.consumerid = c.id GROUP BY `bill` ORDER BY `bill` DESC LIMIT 0,2";
+                        String sql = "SELECT c.consumerName,c.consumerAddress,b.`totalunit`, b.`bill` FROM bill b JOIN consumer c ON b.consumerid = c.id GROUP BY `bill` ORDER BY `bill` DESC LIMIT 2";
                         Statement stmt = con.createStatement();
                         ResultSet rs = stmt.executeQuery(sql);
                         while (rs.next()){
