@@ -272,6 +272,34 @@ public class KsebAdmin {
                 case 8:
                     System.out.println("Top two high bill paying consumers");
 
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ksebdb","root","");
+                        String sql = "SELECT c.consumerName,c.consumerAddress,b.`totalunit`, b.`bill` FROM bill b JOIN consumer c ON b.consumerid = c.id GROUP BY `bill` ORDER BY `bill` DESC LIMIT 0,2";
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while (rs.next()){
+                            String getConsumerName = rs.getString("consumerName");
+                            String getConsumerAddress = rs.getString("consumerAddress");
+                            String getTotalUnit= rs.getString("totalunit");
+                            String getBill = rs.getString("bill");
+
+
+                            System.out.println("Consumer Name="+getConsumerName);
+                            System.out.println("Consumer Address="+getConsumerAddress);
+                            System.out.println("Total Unit="+getTotalUnit);
+                            System.out.println("Amount  ="+getBill+"\n");
+
+
+                        }
+
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
+
+
+
 
                     break;
                 case 9:
